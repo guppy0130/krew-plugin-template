@@ -1,0 +1,48 @@
+version: 2
+project_name: "{{ cookiecutter.project_slug }}"
+
+release:
+  github:
+    owner: "{{ cookiecutter.user }}"
+    name: "{{ cookiecutter.project_slug }}"
+
+builds:
+  - id: "{{ cookiecutter.project_slug }}"
+    goos:
+      - "linux"
+      - "darwin"
+      - "windows"
+    goarch:
+      - "amd64"
+      - "arm64"
+    goarm:
+      - "7"
+    env:
+      - CGOENABLED=0
+      - GO111MODULE=on
+    main: ./cmd/{{ cookiecutter.project_slug }}/main.go
+    ldflags:
+      - -s -w
+
+archives:
+  - format: "tar.gz"
+    id: "{{ cookiecutter.project_slug }}"
+    builds:
+      - "{{ cookiecutter.project_slug }}"
+
+brews:
+  - repository:
+      owner: "{{ cookiecutter.user }}"
+      name: "{{ cookiecutter.project_slug }}"
+    homepage: "https://github.com/{{ cookiecutter.user }}/{{ cookiecutter.project_slug }}"
+    description: "{{ cookiecutter.description }}"
+    directory: "Formula"
+
+krews:
+  - name: "{{ cookiecutter.plugin_name }}"
+    short_description: "{{ cookiecutter.description }}"
+    description: "{{ cookiecutter.description }}"
+    homepage: "https://github.com/{{ cookiecutter.user }}/{{ cookiecutter.project_slug }}"
+    repository:
+      owner: "{{ cookiecutter.user }}"
+      name: "{{ cookiecutter.project_slug }}"

@@ -1,0 +1,7 @@
+{
+  "plugin_name": "a-non-kubectl-prefixed-name",
+  "project_slug": "kubectl-{{ cookiecutter.plugin_name.lower().replace(' ', '-') }}",
+  "user": "$USER",
+  "description": "Plugin description",
+  "use_codecov": true
+}
