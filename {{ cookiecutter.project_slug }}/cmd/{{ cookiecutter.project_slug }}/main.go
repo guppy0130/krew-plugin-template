@@ -21,8 +21,11 @@ func RootCmd() *cobra.Command {
 		Short:         "{{ cookiecutter.description }}",
 		SilenceErrors: true,
 		SilenceUsage:  true,
-		PreRun: func(cmd *cobra.Command, args []string) {
-			viper.BindPFlags(cmd.Flags())
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if err := viper.BindPFlags(cmd.Flags()); err != nil {
+				return err
+			}
+			return nil
 		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			log := slog.New(slog.NewTextHandler(os.Stderr, nil))
